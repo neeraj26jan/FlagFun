@@ -1,0 +1,161 @@
+<html><head>
+            <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+        <title>Flag Fun Learning</title>
+        <!--<link rel="stylesheet" href="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.css" /> -->
+        <!-- Bootstrap -->
+        <link href="assets/plugins/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet">
+                <link href="assets/css/style.css?q=1ss1" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="assets/plugins/jquery/jquery-1.11.2.min.js"></script>
+        <!-- <script type="text/javascript" src="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.js"></script> -->
+        <script type="text/javascript" src="cordova.js"></script>             
+        <!--app-->
+        <script type="text/javascript" src="assets/js/plugins/uri/URI.js"></script>
+	<!--<script type="text/javascript" src="assets/js/js.js"></script>-->
+         <!-- <script type="text/javascript" src="assets/js/db.js"></script> -->
+	<!-- <script type="text/javascript" src="js/database_js.js"></script> -->
+	  
+        <script type="text/javascript" charset="utf-8">
+	var URI = new URI(location.href); console.log ('URI', URI);
+        var urlBase = URI.protocol() +'://'+ URI.hostname() + URI.directory();
+		
+	function filterCountry() {
+            // Declare variables
+            var input, filter, ul, li, a, i;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }	
+	// ascending order
+    	function SortByID(x,y) {
+     	 return x.ID - y.ID; 
+    	}
+		
+	function SortByName(x,y) {
+      return ((x.CountryName == y.CountryName) ? 0 : ((x.CountryName > y.CountryName) ? 1 : -1 ));
+ 	 }		
+        
+        // Wait for Cordova to load
+        //
+        document.addEventListener("deviceready", onDeviceReady, false);
+        
+         // Cordova is ready
+        
+        function onDeviceReady() {
+		
+		$(document).scroll(function(e){ 
+		
+		if ($(this).scrollTop() > 145) {
+		  $('#filter_country').addClass('fix-search');
+		} else {
+		  $('#filter_country').removeClass('fix-search');   
+		}
+
+
+		});
+
+
+		
+		//var path = window.location.href.replace('learn_new.html', '');
+		$.getJSON(urlBase + "/countries_eng.json", function(data)
+		{	
+
+			var i;
+			//data.sort(SortByName);
+			for(i=0;i<=data.length;i++) {
+				var country = data[i].name.toUpperCase();
+				
+	 		 	//var flag = data[i].name.replace(/ /g, "_");
+				//flag = "assets/img/flags/"+flag+".png";
+				   $('#myUL').append('<li><a href="details.html?name='+ data[i].name +'&code='+data[i].alpha2+'">' + country + '</a></li>'); 
+			 } 		
+		});	
+
+           
+        }
+
+        
+	
+		
+
+    </script>
+
+       
+    
+    </head>
+    <body >
+        <!--<div data-role="page" id="page1">
+        </div>-->
+
+        <!-- Header -->
+        <header id="top" class="header" >
+            <div class="text-vertical-center row">
+
+                
+
+               <div class="bg-play">
+                    
+
+
+
+
+					<div class="content-header">
+                        
+                        <div class="row">
+                            <div class="col-xs-12" style="padding-top:0px; padding-bottom:8px;">
+                                <h2 style="font-size:36px; color: #333333;">LEARN</h2>                                
+                            </div>    
+                        </div>
+                        
+						<div class="row" >
+                            <div class="col-xs-12" id="filter_country" >
+                                <input type="text" id="myInput" onkeyup="filterCountry()" placeholder="Search for country.." style=" margin-bottom:0px;">
+							</div>
+						</div>
+							
+							
+						<div class="row" >
+							<div class="col-xs-12 " style="display:block; position:absolute; height:70%; width:100%; overflow:scroll;">
+								<ul id="myUL"></ul>	
+                                
+                            </div>                            
+                        </div>                        
+
+
+                    </div><!--End.content-header-->
+
+                    
+
+                    <!--<div class="col-xs-1"></div>-->
+                </div>
+                
+                
+
+            </div>
+
+        </header>
+        
+		<div class="popup-back">         
+            <a href="index.html" data-role="button" class="" rel="external"><img src="assets/img/left_arrow.png" /></a>
+        </div>
+        <div class="popup-restart">         
+            <a href="" data-role="button" class="" rel="external"><img src="assets/img/unmute.png" /></a>
+        </div> 
+
+        
+
+</body></html>

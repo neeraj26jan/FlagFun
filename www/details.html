@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>Flag Fun Learning</title>
+        <!--<link rel="stylesheet" href="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.css" />-->
+        <!-- Bootstrap -->
+        <link href="assets/plugins/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet">
+                <link href="assets/css/style.css?q=1ss1" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="assets/plugins/jquery/jquery-1.11.2.min.js"></script>
+        <!--<script type="text/javascript" src="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.js"></script> -->
+        <script type="text/javascript" src="cordova.js"></script>             
+        <!--app-->
+        <script type="text/javascript" src="assets/js/plugins/uri/URI.js"></script>
+        <!--<script type="text/javascript" src="assets/js/js.js"></script> -->
+         <!-- <script type="text/javascript" src="assets/js/db.js"></script> -->
+	<!-- <script type="text/javascript" src="js/database_js.js"></script> -->
+	
+	    
+        <script type="text/javascript" charset="utf-8">
+	var URI = new URI(location.href); console.log ('URI', URI);
+        var urlBase = URI.protocol() +'://'+ URI.hostname() + URI.directory();
+		
+	function GetURLParameter(sParam)
+	{
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) 
+	    {
+		var sParameterName = sURLVariables[i].split('=');
+		if (sParameterName[0] == sParam) 
+		{
+		    return sParameterName[1];
+		}
+	    }
+	}		
+      
+        // Wait for Cordova to load
+        //
+        document.addEventListener("deviceready", onDeviceReady, false);
+        
+         // Cordova is ready
+        //
+        function onDeviceReady() {
+          var name = GetURLParameter('name');
+	  var code = GetURLParameter('code');
+		
+
+		
+		//var path = window.location.href.replace('details.html', '');
+		
+		$.getJSON(urlBase + "/countries_ch.json", function(data)
+		{
+			
+			var i;
+			//data.sort(SortByName);
+			for(i=0;i<=data.length;i++) {				
+				if (data[i].alpha2 === code) {
+				var country = data[i].name.toUpperCase();	
+                    		$("#country_name_ch").html(country); 
+					
+                		}
+				
+				   
+			 } 		
+		});
+		
+		name = name.replace(/%20/g, " ");
+	  var name_out = name.toUpperCase();
+	var flag = name.replace(/ /g, "_");
+
+	$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
+		$("#country_name").html(name_out);  
+            
+        }
+	
+
+    </script>
+        
+        
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+            
+        </div>
+        
+        <!-- Header -->
+        <header id="top" class="header">
+            <div class="text-vertical-center row">
+                <div class="bg-play2">                        
+                    <div class="content-header">
+                        
+                        <div class="row">
+                            <div class="col-xs-12" style="padding-top:30px; padding-bottom:8px;">
+                                <h2 style="font-size:36px; color: #333333;" id="country_name"></h2>                                
+                            </div>    
+                        </div>
+			
+			<div class="row">
+                            <div class="col-xs-12" style="text-align:center; display:block; position:relative; margin-left:auto; margin-right:auto;">
+                                <img class="img-responsive" id="flag_image" src="" style="display:block; position:relative; margin-left:auto; margin-right:auto; border:4px solid #999999" >
+                            </div>
+                        </div>
+			
+			<div class="row">
+                            <div class="col-xs-12" style="padding-top:30px; padding-bottom:8px;">
+                                <h2 style="font-size:36px; color: #333333;" id="country_name_ch"></h2>                                
+                            </div>    
+                        </div>    
+                        
+
+
+                    </div><!--End.content-header-->
+                        
+                    <!--<div class="content-footer">
+                    </div>-->
+                </div>
+            </div>
+        </header>
+        
+        
+        <div class="popup-back">         
+            <a href="learn_new.html" data-role="button" class="" rel="external"><img src="assets/img/left_arrow.png" /></a>
+        </div>
+        <div class="popup-restart">         
+            <a href="" data-role="button" class="" rel="external"><img src="assets/img/unmute.png" /></a>
+        </div>
+
+    </body>
+</html>

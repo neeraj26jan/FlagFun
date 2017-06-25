@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <title>Flag Fun Learning</title>
+        <link rel="stylesheet" href="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.css" />
+        <!-- Bootstrap -->
+        <link href="assets/plugins/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet">
+                <link href="assets/css/style.css?q=1ss1" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="assets/plugins/jquery/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>             
+        <!--app-->
+        <script type="text/javascript" src="assets/js/plugins/uri/URI.js"></script>
+        
+         <!-- <script type="text/javascript" src="assets/js/db.js"></script> -->
+
+        <script type="text/javascript" charset="utf-8">
+	function getPhoneGapPath() {
+	   var path = window.location.pathname;
+	   path = path.substr( path, path.length - 10 );
+	   return path;
+	};	
+	document.addEventListener("backbutton", function(e){
+            //navigator.app.backHistory();
+	    e.preventDefault();
+        }, false);
+	
+        var URI = new URI(location.href); console.log ('URI', URI);
+        var urlBase = URI.protocol() +'://'+ URI.hostname() + URI.directory();
+	var loopMediaflag; // flag to prevent restart of media on state change
+			
+	var rootPath = "";
+	var audioPlaying = false;
+	var myMedia;
+	var loopMediaflag;	
+	//if(device.platform.toLowerCase() === "android") {
+	//	var rootPath = 'file://' + getPhoneGapPath();
+	//} else {
+	//	var rootPath = getPhoneGapPath();
+	//}
+
+function playAudio(src) {
+		
+		if (audioPlaying === false) {
+			if(device.platform.toLowerCase() === "android") {
+			var rootPath = "file:///android_asset/www/";		
+			}	
+		   src = rootPath + src;
+		   
+		myMedia = new Media(src, null, null, mediaLoop);  
+			
+		function mediaLoop(status) {
+			if (status === Media.MEDIA_STOPPED) {
+				if(loopMediaflag === true) {		
+					myMedia.play();
+				}
+			}
+		
+		};	
+		
+			myMedia.play();
+		    	audioPlaying = true;
+			
+		    //audioPlaying = true;
+		} else {
+			//myMedia.stop();
+		    //audio is already playing
+		}
+		
+	}
+
+	function stopAudio() {
+	 if (myMedia) {
+	     myMedia.stop();
+	     audioPlaying = false;
+	     }
+	}		
+		
+	function GetURLParameter(sParam)
+	{
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) 
+	    {
+		var sParameterName = sURLVariables[i].split('=');
+		if (sParameterName[0] == sParam) 
+		{
+		    return sParameterName[1];
+		}
+	    }
+	}
+	
+	
+	function openPopup(){
+		
+	}	
+		
+        // Wait for Cordova to load
+        //
+        document.addEventListener("deviceready", onDeviceReady, false);
+		
+         // Cordova is ready
+        //
+	
+
+        function onDeviceReady() {
+		
+		
+		if(device.platform.toLowerCase() === "android") {
+			var rootPath = "file:///android_asset/www/";		
+		}
+		 //var n = $('.count_time').html() - 1;
+		 //   setInterval(function() {
+	         //		if (n >= 0) { $('.count_time').html(n--); }
+		  //  }, 1000);
+			var language = window.localStorage.getItem("language");
+			var music = window.localStorage.getItem("music_setting");
+			var voice = window.localStorage.getItem("voice_setting");
+			if(music=="on non") {
+				$("#music").find('div').toggleClass('active').toggleClass('non');
+				loopMediaflag = false;	
+			} else {
+				loopMediaflag = true;
+				playAudio("assets/audio/extra/bg_music.wav");
+				
+			}	
+		
+			if(voice=="on non") {
+			$("#voice-over").find('div').toggleClass('active').toggleClass('non');
+			}
+		
+																
+			if(language=="chinese"){
+			var jsonFile = "/countries_ch.json";
+			$("#language").val("chinese");	
+			} else {
+			var jsonFile = "/countries_eng.json";
+			}	
+		
+			var totalPoints;
+			var currentQuestion;
+			var totalQuestion;
+			totalPoints = GetURLParameter('total_points') || '0';
+			currentQuestion = GetURLParameter('current_question') || '1';
+			totalQuestion = GetURLParameter('total_question') || '25';
+		
+			
+			$("#popup-message-win-points").html(totalPoints+" points");
+			$("#total_questions").html(currentQuestion+" of "+totalQuestion);
+			//var path = window.location.href.replace('learn_new.html', '');
+			$.getJSON(urlBase + jsonFile, function(data)
+			{	
+				var i;
+				var arr = [];
+				var arr2 = [];
+				//data.sort(SortByName);
+				for(i=0;i<=3;i++) {
+					var entry = data[Math.floor(Math.random()*data.length)];					
+					var country = entry.name.toUpperCase();					
+					//var arr = $.makeArray(entry);
+					arr.push(entry.name);
+					arr2.push(entry.alpha2);
+					
+					$('#questions').append('<div class="col-xs-6 "><a href="#" class="btn  x-btn-1" data-audio="" id="opt_'+i+'">'+country+'</a></div>'); 
+					
+					if(i==3) {
+					   
+					  	 $.getJSON(urlBase + "/countries_eng.json", function(data2)
+						{	
+							var getcountryCode = $("#flag_image").attr('alt');
+							var k;
+							for(k=0;k<=data2.length;k++) {
+								if(getcountryCode===data2[k].alpha2){
+
+									var flag = data2[k].name.replace(/ /g, "_");
+									$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
+								}	
+							}	
+						});
+					   
+					   
+					   }   
+				
+				}
+				var rand = 0 + Math.floor(Math.random() * 3);
+				var country_name = arr[rand];
+				var country_code = arr2[rand];
+				var country_name_upper = country_name.toUpperCase();	
+				var flag = country_name.replace(/ /g, "_");
+				//$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
+            			$("#flag_image").attr("alt",country_code);
+				$("#opt_"+rand).attr("data-audio","assets/audio/extra/correct-answer.mp3");
+				//$("#flag_name").html(country_name_upper);
+				
+			// ANSWER BUTTON CLICK EVENT
+			$(".x-btn-1").click(function(){
+				$(".x-btn-1").addClass(' x-btn-1-disabled');
+				var uriAudio = $(this).attr( "data-audio" ) || '';
+				if (uriAudio.length > 0) {
+					if ( $(this).hasClass( "x-btn-1-disabled" ) ) {
+				    		$(this).removeClass('x-btn-1-disabled');
+					}					
+					$(this).addClass(' x-btn-1-green');
+					totalPoints = parseInt(totalPoints)+10;
+					currentQuestion = parseInt(currentQuestion)+1;
+										
+					var url = rootPath + $(this).attr('data-audio');
+					var my_media = new Media(url);
+					my_media.play();
+					
+					
+					setTimeout(function() {
+						if(currentQuestion>totalQuestion){
+						window.location = "win.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
+						} else {
+					 	window.location = "play.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
+						}
+						}, 3000);
+									
+				} else{
+					if ( $(this).hasClass( "x-btn-1-disabled" ) ) {
+				    		$(this).removeClass('x-btn-1-disabled');
+					}					
+					$(this).addClass(' x-btn-1-wrong');
+					$("#opt_"+rand).addClass(' x-btn-1-green');
+					
+					if ( $("#opt_"+rand).hasClass( "x-btn-1-disabled" ) ) {
+				    		$("#opt_"+rand).removeClass('x-btn-1-disabled');
+					}
+					if(totalPoints>=10){
+						totalPoints = parseInt(totalPoints)-10;
+					}	
+						currentQuestion = parseInt(currentQuestion)+1;
+						var url = rootPath + 'assets/audio/extra/error.mp3';
+					    	var my_media = new Media(url);
+					    	my_media.play();
+						setTimeout(function() {
+					 	if(currentQuestion>totalQuestion){
+						window.location = "win.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
+						} else {
+					 	window.location = "play.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
+						}
+						}, 3000);
+						
+				
+				}
+				
+			    	
+				
+		 		
+			});
+			
+			
+			
+			});
+
+		
+		
+		
+			
+		
+			
+        }
+	
+
+	
+		
+$(document).ready(function() {
+	
+	  
+	$('select').on('change', function() {
+	  window.localStorage.setItem("language", this.value);
+	  var nameCodeCurrent =  window.localStorage.getItem("namecode");
+	  var pageID =  window.localStorage.getItem("currentPage");
+		
+	  		
+			
+	  	
+	}) 
+	$('.push').click(function() {
+	  	
+	  	$(this).find('div').toggleClass('active').toggleClass('non');
+		var getID = $(this).attr('id');
+		var getClass = $(this).find('div').attr('class');
+		
+		if(getID=="music") {
+			window.localStorage.setItem("music_setting", getClass);
+			if(getClass=="on non") {
+				loopMediaflag = false;
+				stopAudio();
+			} else {
+				loopMediaflag = true;
+				playAudio("assets/audio/extra/bg_music.wav");
+			}	
+		} 
+		
+		if(getID=="voice-over") {
+			window.localStorage.setItem("voice_setting", getClass);
+		}
+		
+	});		
+});
+
+				
+    </script>
+    <!-- <script type="text/javascript" src="assets/js/js.js"></script> -->    
+	<style type="text/css">
+	#settings{z-index:9999; }
+	.settings_container{display:block; position:relative; text-align:center; box-shadow: 5px 5px 5px #888888; padding:10px; margin-left:auto; width:90%; margin-right:auto; max-width:600px; background: url(assets/img/pattern004.jpg) repeat; border-radius:10px; }    
+	  
+	</style>        
+    </head>
+    <body>
+       <div data-role="page" id="page1">
+                
+        </div> 
+	    
+       
+	<div id="settings" class="bg-play3 ui-page ui-page-theme-d" data-role="popup" data-theme="d" data-url="settings" tabindex="0">
+			    <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				
+				<p></p>
+				<h2 style="text-shadow: 2px 2px #999999; width:100%; text-align:center;" >Settings</h2>
+					
+				<div class="settings_container">
+				<form class="form-horizontal" role="form">
+				<div class="form-group" style="padding-bottom:10px;">
+					<label for="language" class="col-sm-6 control-label" style="line-height:28px; font-size:22px;">Language</label>
+					<div class="col-sm-6">
+					  <select class="span6" class="form-control" name="language" id="language"><option value="english">English</option><option value="chinese">Chinese</option></select> 
+					</div>
+				 </div>
+				
+				<div class="form-group" style="padding-bottom:15px;" >
+					<label for="music" class="col-sm-6 control-label" style="line-height:28px; font-size:22px;">Music</label>
+					<div class="col-sm-6" >
+					  <div class="push" id="music" style="margin-left:auto; margin-right:auto;">
+					  <div class="on active"><span>ON</span></div>
+					  <div class="off non"><span>OFF</span></div>
+					</div>
+					  
+					</div>
+				 </div>
+				
+				<div class="form-group" >
+					<label for="voice-over" class="col-sm-6 control-label" style="line-height:28px; font-size:22px;">Voice Over</label>
+					<div class="col-sm-6" >
+					  <div class="push" id="voice-over" style="margin-left:auto; margin-right:auto;">
+					  <div class="on active"><span>ON</span></div>
+					  <div class="off non"><span>OFF</span></div>
+					</div>
+					  
+					</div>
+				 </div>	
+				
+				
+				</form>	   
+					
+			</div>	
+			</div><!-- /popup -->			
+	   
+	    
+	   
+	    
+        <!-- Header -->
+        <header id="top" class="header">
+            <div class="text-vertical-center row">
+
+                <div class="bg-play2">
+                    <div class="content-header">
+
+                        
+                        <div class="row">
+                            <div class="col-xs-12" style="padding-top:8px; padding-bottom:8px;">
+                                <!--<h2 style="font-size:36px; color: #333333;">Name By Flag</h2>-->
+                                <div id="tblDiv"></div>
+                            </div>    
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center; display:block; position:relative; margin-left:auto; margin-right:auto; padding-top:15px;">
+                                <img class="img-responsive" id="flag_image" alt="" src="" style="display:block; position:relative; margin-left:auto; margin-right:auto; box-shadow: 5px 5px 5px #888888;" >
+                            	<span id="flag_name"></span>
+			    </div>
+                        </div>
+						
+						
+
+                    </div><!--End.content-header-->
+                        
+                    <div class="content-footer">
+			<div class="row" id="questions">                            
+                        </div>    
+                                                
+                    </div><!--End.content-footer-->
+                </div>
+            </div>
+        </header>
+
+	    
+		
+	    
+	    
+        
+        <div class="popup-message" style="display:block">
+           <div style="display:block; position:relative; float:left;"> 
+            <img src="assets/img/trophy.png" />&nbsp;
+            </div>
+            <div id ="popup-message-win" style="display:block; position:relative; float:left;"> 
+		    <div class="row" id="popup-message-win-points"></div>
+            <span id="total_questions"></span>
+            </div>    
+        </div>
+        <div class="popup-restart">
+	    <!-- <div class="circle_time center_time">
+		    <div class="count_time">30</div>
+		    <div class="l-half"></div>
+		    <div class="r-half"></div>
+		</div>-->	
+            <a href="index.html" data-role="button" class="" rel="external"><img src="assets/img/restart.png" /></a>
+		
+          &nbsp;
+		<a href="#settings" onclick="openPopup()" data-position-to="window" data-rel="popup" data-role="button" class="" rel="external"><img src="assets/img/settings.png" /></a>
+        
+		
+        </div>
+	    
+	
+
+    </body>
+</html>

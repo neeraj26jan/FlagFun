@@ -1,0 +1,206 @@
+<html><head>
+            <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+        <title>Flag Fun Learning</title>
+        <link rel="stylesheet" href="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.css" />
+        <!-- Bootstrap -->
+        <link href="assets/plugins/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet">
+                <link href="assets/css/style.css?q=1ss1" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="assets/plugins/jquery/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>             
+        <!--app-->
+        <script type="text/javascript" src="assets/js/plugins/uri/URI.js"></script>
+	<!--<script type="text/javascript" src="assets/js/js.js"></script>-->
+         <!-- <script type="text/javascript" src="assets/js/db.js"></script> -->
+	<!-- <script type="text/javascript" src="js/database_js.js"></script> -->
+	  
+        <script type="text/javascript" charset="utf-8">
+	var URI = new URI(location.href); console.log ('URI', URI);
+        var urlBase = URI.protocol() +'://'+ URI.hostname() + URI.directory();
+		
+	function filterCountry() {
+            // Declare variables
+            var input, filter, ul, li, a, i;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName('li');
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }	
+	// ascending order
+    	function SortByID(x,y) {
+     	 return x.ID - y.ID; 
+    	}
+		
+	function SortByName(x,y) {
+      return ((x.CountryName == y.CountryName) ? 0 : ((x.CountryName > y.CountryName) ? 1 : -1 ));
+ 	 }		
+        
+        // Wait for Cordova to load
+        //
+        document.addEventListener("deviceready", onDeviceReady, false);
+        
+         // Cordova is ready
+        
+        function onDeviceReady() {
+		
+		$(document).scroll(function(e){ 
+		
+		if ($(this).scrollTop() > 145) {
+		  $('#filter_country').addClass('fix-search');
+		} else {
+		  $('#filter_country').removeClass('fix-search');   
+		}
+		});
+		
+		//var path = window.location.href.replace('learn_new.html', '');
+		$.getJSON(urlBase + "/countries_eng.json", function(data)
+		{	
+			var i;
+			//data.sort(SortByName);
+			for(i=0;i<=data.length;i++) {
+				var country = data[i].name.toUpperCase();
+				
+	 		 	//var flag = data[i].name.replace(/ /g, "_");
+				//flag = "assets/img/flags/"+flag+".png";
+				   $('#myUL').append('<li><a href="details.html?name='+ data[i].name +'&code='+data[i].alpha2+'">' + country + '</a></li>'); 
+			 } 		
+		});	
+           
+        }
+        
+
+		
+		
+		
+
+		
+		
+$( document ).on( "pageinit", "[data-role='page'].bg-play", function() {
+    var page = "#" + $( this ).attr( "id" ),
+        // Get the filename of the next page that we stored in the data-next attribute
+        next = $( this ).jqmData( "next" ),
+        // Get the filename of the previous page that we stored in the data-prev attribute
+        prev = $( this ).jqmData( "prev" );
+	alert(page);
+    // Check if we did set the data-next attribute
+    if ( next ) {
+        // Prefetch the next page
+        $.mobile.loadPage( next + ".html" );
+        // Navigate to next page on swipe left
+        $( document ).on( "swipeleft", page, function() {
+            $.mobile.changePage( next + ".html", { transition: "slide" });
+        });
+        // Navigate to next page when the "next" button is clicked
+        $( ".control .next", page ).on( "click", function() {
+            $.mobile.changePage( next + ".html", { transition: "slide" } );
+        });
+    }
+    // Disable the "next" button if there is no next page
+    else {
+        $( ".control .next", page ).addClass( "ui-disabled" );
+    }
+    // The same for the previous page (we set data-dom-cache="true" so there is no need to prefetch)
+    if ( prev ) {
+        $( document ).on( "swiperight", page, function() {
+            $.mobile.changePage( prev + ".html", { transition: "slide", reverse: true } );
+        });
+        $( ".control .prev", page ).on( "click", function() {
+            $.mobile.changePage( prev + ".html", { transition: "slide", reverse: true } );
+        });
+    }
+    else {
+        $( ".control .prev", page ).addClass( "ui-disabled" );
+    }
+});		
+		
+    </script>
+
+<style>
+/* Set the background image sources */
+#newyork { background-image: url(../../_assets/img/newyork.jpg); }
+#buenosaires { background-image: url(../../_assets/img/buenosaires.jpg); }
+#paris { background-image: url(../../_assets/img/paris.jpg); }
+#capetown { background-image: url(../../_assets/img/capetown.jpg); }
+#seoul { background-image: url(../../_assets/img/seoul.jpg); }
+#sydney { background-image: url(../../_assets/img/sydney.jpg); }
+/* Background settings */
+.bg-play {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+/* Transparent footer */
+.demo-page .ui-footer {
+    background: none;
+    border: none;
+    bottom: 0;
+}
+/* The footer won't have a height because there are only two absolute positioned elements in it.
+So we position the buttons from the bottom. */
+.control.ui-btn-left, .trivia-btn.ui-btn-right {
+    top: auto;
+    bottom: 7px;
+    margin: 0;
+}
+/* Custom styling for the trivia source */
+small {
+    font-size: .75em;
+    color: #666;
+}
+/* Prevent text selection while swiping with mouse */
+.bg-play .ui-header, .ui-title, .control .ui-btn, .trivia-btn {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+</style>	
+    
+    </head>
+    <body >
+<div data-role="page" id="flags" class="bg-play" data-dom-cache="true" data-theme="a" data-prev="prevFlag" data-next="nextFlag" data-url="flags">
+    <!-- "city", "prevCity" and "nextCity" are used as placeholders and contain the name of the applicable city in our demo files. -->
+    <div data-role="header" data-position="fixed" data-fullscreen="true" data-id="hdr" data-tap-toggle="false">
+        <h1>Flags</h1>
+        <a href="learn_flag.html" data-direction="reverse" data-icon="delete" data-iconpos="notext" data-shadow="false" data-icon-shadow="false">Back</a>
+    </div><!-- /header -->
+    <div data-role="content">
+        <div id="trivia-city" class="trivia ui-content" data-role="popup" data-position-to="window" data-tolerance="50,30,30,30" data-theme="d">
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <p>Here some text.</p>
+        </div><!-- /popup -->
+    </div><!-- /content -->
+    <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
+        <div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
+            <a href="#" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
+            <a href="#" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
+        </div>
+        <a href="#trivia-city" data-rel="popup" class="trivia-btn ui-btn-right" data-role="button" data-icon="info" data-iconpos="left" data-theme="d" data-mini="true">Trivia</a>
+    </div><!-- /footer -->
+</div>
+
+        
+		<div class="popup-back">         
+            <a href="index.html" data-role="button" class="" rel="external"><img src="assets/img/left_arrow.png" /></a>
+        </div>
+        <div class="popup-restart">         
+            <a href="" data-role="button" class="" rel="external"><img src="assets/img/unmute.png" /></a>
+        </div> 
+
+        
+
+</body></html>

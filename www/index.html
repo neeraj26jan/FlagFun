@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <title>Flag Fun Learning</title>
+        <link rel="stylesheet" href="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.css" />
+        <!-- Bootstrap -->
+        <link href="assets/plugins/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/css/style.css?q=1ss1" rel="stylesheet" type="text/css" />
+        
+        <script type="text/javascript" src="assets/plugins/jquery/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
+        <!-- <script type="text/javascript" src="assets/js/index.html.js"></script> -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/uri/URI.js"></script>
+
+        <script type="text/javascript">
+        var URI = new URI(location.href); console.log ('URI', URI);
+        var urlBase = URI.protocol() +'://'+ URI.hostname() + URI.directory();
+        document.addEventListener("deviceready", onDeviceReady, false);
+        
+        function exitApp(){
+         navigator.app.exitApp()   
+        }
+
+        function onConfirm(button) {
+            navigator.app.exitApp();// Otherwise we quit the app.
+            
+        }
+        
+        
+        function onDeviceReady(){
+            document.addEventListener("backbutton", function(e){
+                e.preventDefault();
+                navigator.app.exitApp();
+            }, false);   
+        
+        }
+         
+    </script>        
+    </head>
+    <body>
+    <div data-role="page" id="page1">
+
+    </div>
+
+    <!-- Header -->
+   
+    <header id="top" class="header" style="padding-top:2%;">
+        <div class="text-vertical-center row">
+           <div class="bg-play2" style="padding-top:2%;"> 
+            <div class="row">
+                <div class="col-xs-6 space-parrot">
+                    <img class="img-responsive" src="assets/img/parrot-abc.png">
+                    
+                </div>
+                <div class="col-xs-6 space-button text-left"> 
+                    
+                    <div class="row">
+                        <a href="details_swipe.html"  data-role="button" class="btn x-btn-main-green" rel="external" >
+                            LEARN
+                            <span class="glyphicon glyphicon-circle-arrow-right x-btn-arrow-red" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" rel="external" onclick='window.location = urlBase + "/play.html?level=1"' data-role="button"  id="level2button" 
+                           class="btn x-btn-main-blue x-btn-main-disabled_">
+                                PLAY &nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-circle-arrow-right x-btn-arrow-red color-blue" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="about.html" rel="external" data-role="button"  
+                           class="btn x-btn-main-purple" >
+                            ABOUT <span class="glyphicon glyphicon-circle-arrow-right x-btn-arrow-red color-purple" aria-hidden="true"></span>                        
+                        </a>
+                    </div>
+                    
+                    <!-- <div class="row">
+                        <a href="#" onclick="exitApp()" data-role="button"  class="btn x-btn-main-red" >
+                            EXIT &nbsp; &nbsp; &nbsp;
+                            <span class="glyphicon glyphicon-circle-arrow-right x-btn-arrow-red color-red" aria-hidden="true"></span>
+                        </a>
+                    </div> -->
+                    
+                    
+
+                </div>
+            </div>
+           </div> 
+        </div>
+
+    </header>
+        
+
+    <!--app-->
+    
+    
+
+</body>
+</html>
