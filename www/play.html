@@ -125,8 +125,8 @@ function playAudio(src) {
 				$("#music").find('div').toggleClass('active').toggleClass('non');
 				loopMediaflag = false;	
 			} else {
-				loopMediaflag = true;
-				playAudio("assets/audio/extra/bg_music.wav");
+				//loopMediaflag = true;
+				//playAudio("assets/audio/extra/bg_music.wav");
 				
 			}	
 		
@@ -159,12 +159,15 @@ function playAudio(src) {
 				var arr = [];
 				var arr2 = [];
 				//data.sort(SortByName);
+			if ( !( data.name in arr ) ) {	
 				for(i=0;i<=3;i++) {
 					var entry = data[Math.floor(Math.random()*data.length)];					
 					var country = entry.name.toUpperCase();					
 					//var arr = $.makeArray(entry);
 					arr.push(entry.name);
 					arr2.push(entry.alpha2);
+					
+					
 					
 					$('#questions').append('<div class="col-xs-6 "><a href="#" class="btn  x-btn-1" data-audio="" id="opt_'+i+'">'+country+'</a></div>'); 
 					
@@ -187,6 +190,7 @@ function playAudio(src) {
 					   }   
 				
 				}
+			}	
 				var rand = 0 + Math.floor(Math.random() * 3);
 				var country_name = arr[rand];
 				var country_code = arr2[rand];
@@ -211,7 +215,7 @@ function playAudio(src) {
 										
 					var url = rootPath + $(this).attr('data-audio');
 					var my_media = new Media(url);
-					my_media.play();
+					//my_media.play();
 					
 					
 					setTimeout(function() {
