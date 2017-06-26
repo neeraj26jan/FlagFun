@@ -125,8 +125,8 @@ function playAudio(src) {
 				$("#music").find('div').toggleClass('active').toggleClass('non');
 				loopMediaflag = false;	
 			} else {
-				//loopMediaflag = true;
-				//playAudio("assets/audio/extra/bg_music.wav");
+				loopMediaflag = true;
+				playAudio("assets/audio/extra/bg_music.wav");
 				
 			}	
 		
@@ -215,7 +215,7 @@ function playAudio(src) {
 										
 					var url = rootPath + $(this).attr('data-audio');
 					var my_media = new Media(url);
-					//my_media.play();
+					my_media.play();
 					
 					
 					setTimeout(function() {
