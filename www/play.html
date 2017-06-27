@@ -111,9 +111,9 @@ function playAudio(src) {
 	function onDeviceReady() {
 		
 		
-		if(device.platform.toLowerCase() === "android") {
+		/*if(device.platform.toLowerCase() === "android") {
 			var rootPath = "file:///android_asset/www/";		
-		}
+		} */
 		
 		 //var n = $('.count_time').html() - 1;
 		 //   setInterval(function() {
@@ -126,8 +126,8 @@ function playAudio(src) {
 				$("#music").find('div').toggleClass('active').toggleClass('non');
 				loopMediaflag = false;	
 			} else {
-				loopMediaflag = true;
-				playAudio("assets/audio/extra/bg_music.wav");
+				//loopMediaflag = true;
+				//playAudio("assets/audio/extra/bg_music.wav");
 				
 			}	
 		
@@ -160,14 +160,6 @@ function playAudio(src) {
 				var arr = [];
 				var arr2 = [];
 				//data.sort(SortByName);
-				var rand = 0 + Math.floor(Math.random() * 3);
-				var country_name = arr[rand];
-				var country_code = arr2[rand];
-				var country_name_upper = country_name.toUpperCase();	
-				var flag = country_name.replace(/ /g, "_");
-				//$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
-            	$("#flag_image").attr("alt",country_code);
-				$("#opt_"+rand).attr("data-audio","assets/audio/extra/correct-answer.mp3");
 			if ( !( data.name in arr ) ) {	
 				for(i=0;i<=3;i++) {
 					var entry = data[Math.floor(Math.random()*data.length)];					
@@ -204,7 +196,14 @@ function playAudio(src) {
 				
 				}
 			}	
-				
+				var rand = 0 + Math.floor(Math.random() * 3);
+				var country_name = arr[rand];
+				var country_code = arr2[rand];
+				var country_name_upper = country_name.toUpperCase();	
+				var flag = country_name.replace(/ /g, "_");
+				//$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
+            			$("#flag_image").attr("alt",country_code);
+				$("#opt_"+rand).attr("data-audio","assets/audio/extra/correct-answer.mp3");
 				//$("#flag_name").html(country_name_upper);
 				
 			// ANSWER BUTTON CLICK EVENT
@@ -220,8 +219,8 @@ function playAudio(src) {
 					currentQuestion = parseInt(currentQuestion)+1;
 										
 					var url = rootPath + $(this).attr('data-audio');
-					var my_media = new Media(url);
-					my_media.play();
+					//var my_media = new Media(url);
+					//my_media.play();
 					
 					
 					setTimeout(function() {
@@ -247,8 +246,8 @@ function playAudio(src) {
 					}	
 						currentQuestion = parseInt(currentQuestion)+1;
 						var url = rootPath + 'assets/audio/extra/error.mp3';
-					    	var my_media = new Media(url);
-					    	my_media.play();
+					    	//var my_media = new Media(url);
+					    	//my_media.play();
 						setTimeout(function() {
 					 	if(currentQuestion>totalQuestion){
 						window.location = "win.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
@@ -269,14 +268,8 @@ function playAudio(src) {
 			
 			});
 
-		
-		
-		
-			
-		
-			
-        }        
-	
+
+        }
 
 	
 		
