@@ -170,7 +170,9 @@ function playAudio(src) {
 					
 					
 					$('#questions').append('<div class="col-xs-6 "><a href="#" class="btn  x-btn-1" data-audio="" id="opt_'+i+'">'+country+'</a></div>'); 
-					
+				
+				
+				setTimeout(function() {
 					if(i==3) {
 					   
 					  	 $.getJSON(urlBase + "/countries_eng.json", function(data2)
@@ -187,7 +189,8 @@ function playAudio(src) {
 						});
 					   
 					   
-					   }   
+					   }
+					}, 1000);
 				
 				}
 			}	
