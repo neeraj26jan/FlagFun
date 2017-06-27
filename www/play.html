@@ -160,10 +160,6 @@ function playAudio(src) {
 				var arr = [];
 				var arr2 = [];
 				
-				var rand = 0 + Math.floor(Math.random() * 3);
-				var country_name = arr[rand];
-				var country_code = arr2[rand];
-				var country_name_upper = country_name.toUpperCase();	
 				//data.sort(SortByName);
 			if ( !( data.name in arr ) ) {
 				
@@ -203,7 +199,10 @@ function playAudio(src) {
 				
 				}
 			}	
-				
+				var rand = 0 + Math.floor(Math.random() * 3);
+				var country_name = arr[rand];
+				var country_code = arr2[rand];
+				var country_name_upper = country_name.toUpperCase();
 				var flag = country_name.replace(/ /g, "_");
 				//$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
             			$("#flag_image").attr("alt",country_code);
