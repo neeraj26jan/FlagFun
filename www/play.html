@@ -173,11 +173,12 @@ function playAudio(src) {
 					$('#questions').append('<div class="col-xs-6 "><a href="#" class="btn  x-btn-1" data-audio="" id="opt_'+i+'">'+country+'</a></div>'); 
 				
 				
-				//setTimeout(function() {
+				
 					if(i==3) {
 					   
 					  	 $.getJSON(urlBase + "/countries_eng.json", function(data2)
-						{	
+						{
+							setTimeout(function() { 
 							var getcountryCode = $("#flag_image").attr('alt');
 							var k;
 							for(k=0;k<=data2.length;k++) {
@@ -186,12 +187,13 @@ function playAudio(src) {
 									var flag = data2[k].name.replace(/ /g, "_");
 									$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
 								}	
-							}	
+							}
+							}, 1000);	
 						});
 					   
 					   
 					   }
-					//}, 1000);
+					
 				
 				}
 			}	
