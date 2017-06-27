@@ -159,7 +159,7 @@ function playAudio(src) {
 				var i;
 				var arr = [];
 				var arr2 = [];
-				var rand = 0 + Math.floor(Math.random() * 3);
+				
 				//data.sort(SortByName);
 			if ( !( data.name in arr ) ) {
 				
@@ -171,10 +171,15 @@ function playAudio(src) {
 					arr.push(entry.name);
 					arr2.push(entry.alpha2);
 					
-					
-					
 					$('#questions').append('<div class="col-xs-6 "><a href="#" class="btn  x-btn-1" data-audio="" id="opt_'+i+'">'+country+'</a></div>'); 
+
+					
 				
+				}
+			}	
+				
+				
+				var rand = 0 + Math.floor(Math.random() * 3);
 				var country_name = arr[rand];
 				var country_code = arr2[rand];
 				var country_name_upper = country_name.toUpperCase();
@@ -184,29 +189,23 @@ function playAudio(src) {
 				$("#opt_"+rand).attr("data-audio","assets/audio/extra/correct-answer.mp3");
 				//$("#flag_name").html(country_name_upper);
 				
-					if(i==3) {
-					   
-					  	 $.getJSON(urlBase + "/countries_eng.json", function(data2)
+				
+				
+				
+				
+				$.getJSON(urlBase + "/countries_eng.json", function(data2)
 						{	
-							var getcountryCode = $("#flag_image").attr('alt');
+							
 							var k;
 							for(k=0;k<=data2.length;k++) {
-								if(getcountryCode===data2[k].alpha2){
+								if(country_code===data2[k].alpha2){
 
 									var flag = data2[k].name.replace(/ /g, "_");
 									$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
 								}	
 							}
 								
-						});
-					   
-					   
-					   }
-					
-				
-				}
-			}	
-				
+				});
 				
 				
 			// ANSWER BUTTON CLICK EVENT
