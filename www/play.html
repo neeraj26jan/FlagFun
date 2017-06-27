@@ -161,11 +161,6 @@ function playAudio(src) {
 				var arr2 = [];
 				//data.sort(SortByName);
 			if ( !( data.name in arr ) ) {
-				var rand = 0 + Math.floor(Math.random() * 3);
-				var country_name = arr[rand];
-				var country_code = arr2[rand];
-				var country_name_upper = country_name.toUpperCase();	
-				var flag = country_name.replace(/ /g, "_");
 				
 				for(i=0;i<=3;i++) {
 					var entry = data[Math.floor(Math.random()*data.length)];					
@@ -202,7 +197,11 @@ function playAudio(src) {
 				
 				}
 			}	
-				
+				var rand = 0 + Math.floor(Math.random() * 3);
+				var country_name = arr[rand];
+				var country_code = arr2[rand];
+				var country_name_upper = country_name.toUpperCase();	
+				var flag = country_name.replace(/ /g, "_");
 				//$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
             			$("#flag_image").attr("alt",country_code);
 				$("#opt_"+rand).attr("data-audio","assets/audio/extra/correct-answer.mp3");
