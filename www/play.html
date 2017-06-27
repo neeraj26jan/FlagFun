@@ -191,11 +191,9 @@ function playAudio(src) {
 				
 				
 				
-				
-				
+			setTimeout(function() {	
 				$.getJSON(urlBase + "/countries_eng.json", function(data2)
-						{	
-							
+						{
 							var k;
 							for(k=0;k<=data2.length;k++) {
 								if(country_code===data2[k].alpha2){
@@ -206,6 +204,7 @@ function playAudio(src) {
 							}
 								
 				});
+			}, 500);
 				
 				
 			// ANSWER BUTTON CLICK EVENT
@@ -231,7 +230,7 @@ function playAudio(src) {
 						} else {
 					 	window.location = "play.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
 						}
-						}, 3000);
+						}, 2000);
 									
 				} else{
 					if ( $(this).hasClass( "x-btn-1-disabled" ) ) {
