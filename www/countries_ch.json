@@ -18,12 +18,6 @@
 		"alpha3": "afg"
 	},
 	{
-		"id": "28",
-		"name": "安地卡及巴布達",
-		"alpha2": "ag",
-		"alpha3": "atg"
-	},
-	{
 		"id": "660",
 		"name": "安圭拉",
 		"alpha2": "ai",
@@ -46,12 +40,6 @@
 		"name": "安哥拉",
 		"alpha2": "ao",
 		"alpha3": "ago"
-	},
-	{
-		"id": "10",
-		"name": "南极洲",
-		"alpha2": "aq",
-		"alpha3": "ata"
 	},
 	{
 		"id": "32",
@@ -182,12 +170,9 @@
 	},
 	{
 		"id": "64",
-		"name": "不丹"
-	},
-	{
-		"id": "",
-		"name": "bt",
-		"alpha2": "btn"
+		"name": "不丹",
+		"alpha2": "bt",
+		"alpha3": "btn"
 	},
 	{
 		"id": "72",
@@ -278,12 +263,6 @@
 		"name": "佛得角",
 		"alpha2": "cv",
 		"alpha3": "cpv"
-	},
-	{
-		"id": "531",
-		"name": "库拉索",
-		"alpha2": "cw",
-		"alpha3": "cuw"
 	},
 	{
 		"id": "162",
@@ -656,12 +635,6 @@
 		"name": "哈萨克斯坦",
 		"alpha2": "kz",
 		"alpha3": "kaz"
-	},
-	{
-		"id": "418",
-		"name": "老挝",
-		"alpha2": "la",
-		"alpha3": "lao"
 	},
 	{
 		"id": "422",
@@ -1196,12 +1169,6 @@
 		"name": "乌兹别克斯坦",
 		"alpha2": "uz",
 		"alpha3": "uzb"
-	},
-	{
-		"id": "336",
-		"name": "梵蒂冈",
-		"alpha2": "va",
-		"alpha3": "vat"
 	},
 	{
 		"id": "862",
