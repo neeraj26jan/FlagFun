@@ -107,9 +107,9 @@ function playAudio(src) {
 	function onDeviceReady() {
 		
 		
-		/*if(device.platform.toLowerCase() === "android") {
+		if(device.platform.toLowerCase() === "android") {
 			var rootPath = "file:///android_asset/www/";		
-		}*/
+		}
 		
 		 //var n = $('.count_time').html() - 1;
 		 //   setInterval(function() {
@@ -122,8 +122,8 @@ function playAudio(src) {
 				$("#music").find('div').toggleClass('active').toggleClass('non');
 				loopMediaflag = false;	
 			} else {
-				//loopMediaflag = true;
-				//playAudio("assets/audio/extra/bg_music.wav");
+				loopMediaflag = true;
+				playAudio("assets/audio/extra/bg_music.wav");
 				
 			}	
 		
@@ -188,7 +188,6 @@ function playAudio(src) {
 				
 				
 			//setTimeout(function() {
-				/*
 				$.getJSON(urlBase + "/countries_eng.json", function(data2)
 						{
 							var k;
@@ -199,21 +198,12 @@ function playAudio(src) {
 									$("#flag_image").attr("src","assets/img/flags/"+flag+".png");
 								}	
 							}
-					*/			
+					
 				});
 			//}, 500);
 			
 				
-			$.getJSON(urlBase + "/countries_eng.json", function(data2)
-						{
-							var k;
-							for(k=0;k<=data2.length;k++) {
-				$("#top").append(country_code+" - "+data2[k].alpha2);				
-								
-									
-							}
-								
-			});	
+			
 				
 			// ANSWER BUTTON CLICK EVENT
 			$(".x-btn-1").click(function(){
