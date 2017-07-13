@@ -219,23 +219,8 @@ function playAudio(src) {
 					
 					
 					var url = rootPath + $(this).attr('data-audio');
-					var my_media = new Media(url);
-					my_media.play();
-					
-					
-					// TTS START
-					TTS
-					    .speak({
-						text: $(this).html(),
-						locale: 'en-GB',
-						rate: 0.75
-					    }, function () {
-						alert('success');
-					    }, function (reason) {
-						alert(reason);
-					    });
-					
-					
+					//var my_media = new Media(url);
+					//my_media.play();
 					
 					
 					setTimeout(function() {
@@ -274,7 +259,17 @@ function playAudio(src) {
 				
 				}
 				
-			    	
+			    	// TTS START
+					TTS
+					    .speak({
+						text: $(".x-btn-1-green").html(),
+						locale: 'en-GB',
+						rate: 0.75
+					    }, function () {
+						alert('success');
+					    }, function (reason) {
+						alert(reason);
+					    });
 				
 		 		
 			});
