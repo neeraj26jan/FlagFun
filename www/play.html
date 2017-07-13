@@ -38,11 +38,7 @@
 	var audioPlaying = false;
 	var myMedia;
 	var loopMediaflag;	
-	//if(device.platform.toLowerCase() === "android") {
-	//	var rootPath = 'file://' + getPhoneGapPath();
-	//} else {
-	//	var rootPath = getPhoneGapPath();
-	//}
+	
 
 function playAudio(src) {
 		
@@ -111,9 +107,9 @@ function playAudio(src) {
 	function onDeviceReady() {
 		
 		
-		/*if(device.platform.toLowerCase() === "android") {
+		if(device.platform.toLowerCase() === "android") {
 			var rootPath = "file:///android_asset/www/";		
-		} */
+		}
 		
 		 //var n = $('.count_time').html() - 1;
 		 //   setInterval(function() {
@@ -219,7 +215,7 @@ function playAudio(src) {
 					totalPoints = parseInt(totalPoints)+10;
 					currentQuestion = parseInt(currentQuestion)+1;
 					
-					alert($(this).attr('data-audio'));
+					
 					var url = rootPath + $(this).attr('data-audio');
 					var my_media = new Media(url);
 					my_media.play();
