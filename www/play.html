@@ -220,6 +220,7 @@ function playAudio(src) {
 					currentQuestion = parseInt(currentQuestion)+1;
 										
 					var url = rootPath + $(this).attr('data-audio');
+					alert(url);
 					var my_media = new Media(url);
 					my_media.play();
 					
@@ -247,6 +248,7 @@ function playAudio(src) {
 					}	
 						currentQuestion = parseInt(currentQuestion)+1;
 						var url = rootPath + 'assets/audio/extra/error.mp3';
+						alert(url);
 					    	var my_media = new Media(url);
 					    	my_media.play();
 						setTimeout(function() {
@@ -255,7 +257,7 @@ function playAudio(src) {
 						} else {
 					 	window.location = "play.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
 						}
-						}, 3000);
+						}, 1000);
 						
 				
 				}
