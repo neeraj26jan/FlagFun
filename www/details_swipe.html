@@ -275,6 +275,19 @@ $(document).on("swipeleft", ".ui-page", function(event){
 							
 							$(pageID).children('div').children('div').children('div').children('h2').html(country);
 							//$("#country_name").html(country);
+							
+							// TTS START
+							TTS
+							    .speak({
+								text: country,
+								locale: 'zh-CN',
+								rate: 0.75
+							    }, function () {
+								//alert('success');
+							    }, function (reason) {
+								//alert(reason);
+							    });
+							// TTS END
 						}	
 					 } 		
 				});
@@ -290,10 +303,25 @@ $(document).on("swipeleft", ".ui-page", function(event){
 							var country = data3[k].name.toUpperCase();
 							$(pageID).children('div').children('div').children('div').children('h2').html(country);
 							//$("#country_name").html(country);
+							
+							// TTS START
+							TTS
+							    .speak({
+								text: country,
+								locale: 'en-US',
+								rate: 0.75
+							    }, function () {
+								//alert('success');
+							    }, function (reason) {
+								//alert(reason);
+							    });
+							// TTS END
 						}	
 					 } 		
 				});
-			}	
+			}
+	    
+	    
         // swipe using id of next page if exists
         if (nextpage.length > 0) {
             $.mobile.changePage(nextpage, {transition: "slide", reverse: false}, true, true);
