@@ -265,12 +265,6 @@
 		"alpha3": "cub"
 	},
 	{
-		"id": "132",
-		"name": "佛得角",
-		"alpha2": "cv",
-		"alpha3": "cpv"
-	},
-	{
 		"id": "162",
 		"name": "圣诞岛",
 		"alpha2": "cx",
@@ -721,12 +715,6 @@
 		"alpha3": "mda"
 	},
 	{
-		"id": "499",
-		"name": "蒙特內哥罗",
-		"alpha2": "me",
-		"alpha3": "mne"
-	},
-	{
 		"id": "450",
 		"name": "马达加斯加",
 		"alpha2": "mg",
@@ -1043,12 +1031,6 @@
 		"name": "索马里",
 		"alpha2": "so",
 		"alpha3": "som"
-	},
-	{
-		"id": "728",
-		"name": "南苏丹",
-		"alpha2": "ss",
-		"alpha3": "ssd"
 	},
 	{
 		"id": "678",
