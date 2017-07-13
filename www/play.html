@@ -218,9 +218,9 @@ function playAudio(src) {
 					$(this).addClass(' x-btn-1-green');
 					totalPoints = parseInt(totalPoints)+10;
 					currentQuestion = parseInt(currentQuestion)+1;
-										
+					
+					alert($(this).attr('data-audio'));
 					var url = rootPath + $(this).attr('data-audio');
-					alert(url);
 					var my_media = new Media(url);
 					my_media.play();
 					
@@ -248,7 +248,6 @@ function playAudio(src) {
 					}	
 						currentQuestion = parseInt(currentQuestion)+1;
 						var url = rootPath + 'assets/audio/extra/error.mp3';
-						alert(url);
 					    	var my_media = new Media(url);
 					    	my_media.play();
 						setTimeout(function() {
