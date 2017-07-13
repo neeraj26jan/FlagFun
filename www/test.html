@@ -78,7 +78,7 @@
 	
 			var i;
 			
-			//data.sort(SortByName);
+			data.sort(SortByName);
 			for(i=0;i<=data.length;i++) {
 				
 				var country = data[i].name.toUpperCase();
@@ -109,6 +109,7 @@
 						{	
 							
 							var k;
+						 	data2.sort(SortByName);
 							for(k=0;k<=data2.length;k++) {
 								var nameCode2 = data2[k].alpha2;
 								$("#code"+k).html(nameCode2);	
