@@ -134,9 +134,11 @@ function playAudio(src) {
 																
 			if(language=="chinese"){
 			var jsonFile = "/countries_ch.json";
+			var ttsLang = 'zh-CN';	
 			$("#language").val("chinese");	
 			} else {
 			var jsonFile = "/countries_eng.json";
+			var ttsLang = 'en-GB';
 			}	
 		
 			var totalPoints;
@@ -246,8 +248,8 @@ function playAudio(src) {
 					}	
 						currentQuestion = parseInt(currentQuestion)+1;
 						var url = rootPath + 'assets/audio/extra/error.mp3';
-					    	var my_media = new Media(url);
-					    	my_media.play();
+					    	//var my_media = new Media(url);
+					    	//my_media.play();
 						setTimeout(function() {
 					 	if(currentQuestion>totalQuestion){
 						window.location = "win.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
@@ -263,7 +265,7 @@ function playAudio(src) {
 					TTS
 					    .speak({
 						text: $(".x-btn-1-green").html(),
-						locale: 'en-GB',
+						locale: ttsLang,
 						rate: 0.75
 					    }, function () {
 						//alert('success');
