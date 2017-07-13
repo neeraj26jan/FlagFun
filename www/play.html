@@ -223,6 +223,21 @@ function playAudio(src) {
 					my_media.play();
 					
 					
+					// TTS START
+					TTS
+					    .speak({
+						text: $(this).html(),
+						locale: 'en-GB',
+						rate: 0.75
+					    }, function () {
+						alert('success');
+					    }, function (reason) {
+						alert(reason);
+					    });
+					
+					
+					
+					
 					setTimeout(function() {
 						if(currentQuestion>totalQuestion){
 						window.location = "win.html?level=1&total_points="+totalPoints+"&current_question="+currentQuestion;
