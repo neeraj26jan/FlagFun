@@ -118,9 +118,11 @@
         function onDeviceReady() {
 		
 		//$('body').append('<div data-role="page" id="article'+i+'" class="bg-play2"><div class="content-header"><div class="row"><div class="col-xs-12" style="padding-top:30px; padding-bottom:8px;"><h2 style="font-size:36px; color: #333333;">'+country+'</h2></div></div><div class="row"><div class="col-xs-12" style="text-align:center; display:block; position:relative; margin-left:auto; margin-right:auto;"><img class="img-responsive" src="'+flagSrc+'" style="display:block; position:relative; margin-left:auto; margin-right:auto; box-shadow: 5px 5px 5px #888888;" ></div></div><div class="row"><div class="col-xs-12" style="padding-top:30px; padding-bottom:8px;"><h2 style="font-size:36px; color: #333333;" id="country_name_ch"></h2></div></div></div></div>'); 
-		if(device.platform.toLowerCase() === "android") {
+			if(device.platform.toLowerCase() === "android") {
 			var rootPath = "file:///android_asset/www/";		
-		}
+			} else {
+			var rootPath = getPhoneGapPath();	
+			}
 		var language = window.localStorage.getItem("language");
 		var music = window.localStorage.getItem("music_setting");
 		var voice = window.localStorage.getItem("voice_setting");
