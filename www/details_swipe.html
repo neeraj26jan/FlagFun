@@ -36,13 +36,21 @@
 	var rootPath = "";
 	var audioPlaying = false;
     	var myMedia;
-	var loopMediaflag;	
+	var loopMediaflag;
+		
+	function getPhoneGapPath() {
+	   var path = window.location.pathname;
+	   path = path.substr( path, path.length - 10 );
+	   return path;
+	};
 		
 	function playAudio(src) {
 		
 		if (audioPlaying === false) {
 			if(device.platform.toLowerCase() === "android") {
 			var rootPath = "file:///android_asset/www/";		
+			} else {
+			var rootPath = getPhoneGapPath();	
 			}	
 		   src = rootPath + src;
 		   
